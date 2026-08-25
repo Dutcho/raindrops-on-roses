@@ -1,0 +1,15 @@
+[project]
+name = "raindrops-on-roses"  # name for folder, repo, pypi, and install
+version = "0.1.0.2026.8.25"
+description = "Raindrops on roses (and whiskers on kittens) - Assembly of a few of my favourite things to stop repeating myself"
+readme = "README.md"
+authors = [ { name = "Dutcho" } ]
+requires-python = ">=3.13"
+dependencies = [
+    "more-more-itertools",
+]
+
+[build-system]
+requires = ["uv_build<1.0"]
+build-backend = "uv_build"
+module-name = "favs"  # name for import

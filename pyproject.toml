@@ -10,6 +10,8 @@ dependencies = [
 ]
 
 [build-system]
-module-name = "favs"  # name for import
 requires = ["uv_build<1.0"]
 build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "favs"  # name for subfolder and and import

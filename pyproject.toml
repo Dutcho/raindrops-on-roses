@@ -1,12 +1,13 @@
 [project]
 name = "raindrops-on-roses"  # name for main folder, repo, pypi, and install
-version = "0.1.0.20260826"
+version = "0.1.1.20260826"
 description = "Raindrops on roses (and whiskers on kittens) - Collection of 'a few of my favourite things' -i.e. classes and functions- in order to stop repeating myself"
 readme = "README.md"
 authors = [ { name = "Dutcho" } ]
 requires-python = ">=3.12"
 dependencies = [
-    "more-more-itertools", "typing_extensions",
+    "more-itertools",
+    "typing_extensions",
 ]
 
 [build-system]

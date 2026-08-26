@@ -1,12 +1,11 @@
 """favs.itertools - favourite iter tooling functions - Olaf, 23 Aug 2026."""
 import itertools
 import sys
-from collections.abc import Iterable, Iterator, Sized
+from collections.abc import Iterator, Sized
 from typing import Iterable, overload, TYPE_CHECKING
 
 if sys.version_info < (3, 15):
-    from _types import sentinel
-
+    from typing_extensions import sentinel
 
 _NOT_GIVEN = sentinel('_NOT_GIVEN')  # sentinel for dynamic default
 

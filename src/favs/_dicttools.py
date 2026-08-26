@@ -2,7 +2,7 @@
 from collections.abc import Callable, Iterable, Mapping
 from typing import cast, overload, TYPE_CHECKING
 
-from _types import Endofunction
+from ._types import Endofunction
 
 
 if TYPE_CHECKING:

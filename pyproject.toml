@@ -8,7 +8,16 @@ requires-python = ">=3.12"
 dependencies = [
     "more-itertools",
     "typing_extensions",
+    "useful-types",
 ]
+
+[dependency-groups]
+dev = [
+    "mypy",
+]
+
+[tool.uv.sources]
+useful-types = { git = "https://github.com/Dutcho/useful_types.git" }
 
 [build-system]
 requires = ["uv_build<1.0"]

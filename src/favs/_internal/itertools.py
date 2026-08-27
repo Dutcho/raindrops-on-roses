@@ -85,7 +85,8 @@ def mark_last[T, MT](values: Iterable[T], /, *, last: bool | MT = True, other: b
     if last is other:
         raise ValueError(f"cannot mark last with {last=} and {other=} because they're indistinguishable")
     if other is _NOT_GIVEN:
-        other = not last  # dynamic default
+        other = not last                                                   # dynamic default
+    assert not isinstance(other, sentinel)                                 # help typechecker understand
 
     if isinstance(values, Sized):
         if values:                                                         # done if empty

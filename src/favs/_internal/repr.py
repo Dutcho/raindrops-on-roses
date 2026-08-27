@@ -27,18 +27,17 @@ def function_repr(function: Callable[..., object], /) -> str:
 def _empty_signature(signature: Signature, *args: _SignaturePartName) -> Signature:
     """Return `signature` with `*args` parts emptied."""
     _EMPTY: Final = inspect.Signature.empty
-    kwargs = {}
     for empty in args:
         match empty:
             case 'parameters':
                 params = signature.parameters.values()
                 empty_params = [param.replace(annotation=_EMPTY) for param in params]
-                kwargs.update(parameters=empty_params)
+                signature = signature.replace(parameters=empty_params)
             case 'return_annotation':
-                kwargs.update(return_annotation=_EMPTY)
+                signature = signature.replace(return_annotation=_EMPTY)
             case _:
                 assert_never(empty)
-    return signature.replace(**kwargs)
+    return signature
 
 
 def _function_empty_signature(function: Callable[..., object], *args: _SignaturePartName) -> str:

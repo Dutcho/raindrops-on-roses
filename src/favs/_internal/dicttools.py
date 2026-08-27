@@ -1,11 +1,8 @@
-"""favs.dicttools - favourite dict/Mapping tooling functions - Olaf, 23 Aug 2026."""
+"""favs.dicttools - favourite dict/Mapping tooling functions - Olaf, 23-27 Aug 2026."""
 from collections.abc import Callable, Iterable, Mapping
 from typing import cast, overload, TYPE_CHECKING
 
-try:
-    from .types import Endofunction
-except ImportError:
-    from types import Endofunction
+from useful_types import IdentityFunction
 
 if TYPE_CHECKING:
     @overload
@@ -41,7 +38,7 @@ def _mapping_as_cls[KT1, VT1, KT, VT](cls: type[Mapping[KT1, VT1]], /, *args: ob
         case _:
             raise TypeError(f"{args!r} do not match any @overload of {_mapping_as_cls}")
 
-    mapping_kt_vt = cast(Endofunction[Mapping[KT, VT]], cast(object, cls))  # `Mapping[KT, VT]` with origin of `cls`
+    mapping_kt_vt = cast(IdentityFunction[Mapping[KT, VT]], cast(object, cls))  # `Mapping[KT, VT]` with origin of `cls`
     return mapping_kt_vt(mapping)  # values as get_origin(cls)[KT, VT]
 
 

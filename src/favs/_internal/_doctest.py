@@ -1,8 +1,15 @@
-import doctest
-from . import *
+import doctest, sys
+# from . import *
 from . import __all__
-names = __all__
-print(names)
-modules = dicttools, itertools, repr, types
-for m in modules:
-    doctest.testmod(m)
+
+
+def test() -> None:
+    *parents, _ = __name__.split('.')
+    names = ['.'.join([*parents, name]) for name in __all__]
+    modules = [sys.modules[name] for name in names]
+
+    for module in modules:
+        doctest.testmod(module)
+
+
+test()

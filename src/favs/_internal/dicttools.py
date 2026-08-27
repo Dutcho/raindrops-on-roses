@@ -3,9 +3,9 @@ from collections.abc import Callable, Iterable, Mapping
 from typing import cast, overload, TYPE_CHECKING
 
 try:
-    from ._types import Endofunction
+    from .types import Endofunction
 except ImportError:
-    from _types import Endofunction
+    from types import Endofunction
 
 if TYPE_CHECKING:
     @overload

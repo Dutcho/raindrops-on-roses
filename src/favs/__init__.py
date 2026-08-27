@@ -1,17 +1,10 @@
-try:
-    from . import _dicttools as dicttools
-    from . import _itertools as itertools
-    from . import _repr as repr
-    from . import _types as types
-except ImportError as exc:
-    import _dicttools
-    import _itertools
-    import _repr
-    import _types
+"""Hub model for package `favs` only exposes submodules from `_internal` named in `__all__` - Olaf, 26 Aug 2026."""
+if __name__ != '__main__':
+    from ._internal import *
+
+    __all__ = _internal.__all__
+
+    del _internal
 
 if __name__ == '__main__':
-    import doctest
-    doctest.testmod(_dicttools)
-    doctest.testmod(_itertools)
-    doctest.testmod(_repr)
-    doctest.testmod(_types)
+    from _internal import _doctest

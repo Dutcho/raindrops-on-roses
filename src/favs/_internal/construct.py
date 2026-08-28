@@ -1,15 +1,15 @@
 import inspect
 from collections.abc import Callable, Container, Iterator, Mapping
 from types import CodeType, FunctionType
-from typing import Final
+from typing import Final, reveal_type
 
 _EMPTY: Final = inspect.Parameter.empty
 _POS_PARAM_KINDS: Final = {inspect._ParameterKind.POSITIONAL_ONLY, inspect._ParameterKind.POSITIONAL_OR_KEYWORD}
 _KW_PARAM_KINDS: Final = {inspect._ParameterKind.KEYWORD_ONLY}
 
 
-def _dummy(a, *args: object, b, **kwargs: object) -> None:
-    print(a, args, b, kwargs)
+def _dummy(*args: object, **kwargs: object) -> None:
+    print(args, kwargs)
 
 
 def _signature_properties(prop: property, signature: inspect.Signature,
@@ -19,10 +19,17 @@ def _signature_properties(prop: property, signature: inspect.Signature,
         """Iterate over (name, property value) tuples for property `prop` of `kinds` parameters in `signature`."""
         for param in signature.parameters.values():
             if param.kind in kinds:
+                assert prop.fget is not None
                 if prop.fget(param) is not _EMPTY:
                     yield param.name, prop.fget(param)
 
     return dict(pairs())
+
+
+def _signature_kinds(signature: inspect.Signature,
+                     kinds: Container[inspect._ParameterKind] = inspect._ParameterKind) -> Mapping[str, object]:
+    """Return mapping {parameter name -> kind} for `kinds` parameters (default all) in `signature`."""
+    return _signature_properties(inspect.Parameter.kind, signature, kinds)
 
 
 def _signature_annotations(signature: inspect.Signature,
@@ -37,36 +44,47 @@ def _signature_defaults(signature: inspect.Signature,
     return _signature_properties(inspect.Parameter.default, signature, kinds)
 
 
-def construct_code(signature: inspect.Signature, name: str | None = None) -> CodeType:
+def construct_code(signature: inspect.Signature, name: str) -> CodeType:
     """Return function code with name `name` and signature `signature`."""
     def code_obj(
             argcount: int,
             posonlyargcount: int,
             kwonlyargcount: int,
-            nlocals: int,
-            stacksize: int,
-            flags: int,
-            codestring: bytes,
-            constants: tuple[object, ...],
-            names: tuple[str, ...],
-            varnames: tuple[str, ...],
-            filename: str,
+            # nlocals: int,
+            # stacksize: int,
+            # flags: int,
+            # codestring: bytes,
+            # constants: tuple[object, ...],
+            # names: tuple[str, ...],
+            # varnames: tuple[str, ...],
+            # filename: str,
             name: str,
             qualname: str,
-            firstlineno: int,
-            linetable: bytes,
-            exceptiontable: bytes,
-            freevars: tuple[str, ...] = ...,
-            cellvars: tuple[str, ...] = ...,
-            /,
-    ) -> CodeType: ...
+            # firstlineno: int,
+            # linetable: bytes,
+            # exceptiontable: bytes,
+            # freevars: tuple[str, ...] = ...,
+            # cellvars: tuple[str, ...] = ...,
 
-    code = _dummy.__code__ or code_obj()
+    ) -> None:
+        print(argcount, posonlyargcount, kwonlyargcount,
+
+              name, qualname,
+              )
+
+    code = code_obj(argcount=len(_signature_kinds(signature, _POS_PARAM_KINDS)),
+                    posonlyargcount=len(_signature_kinds(signature, {inspect._ParameterKind.POSITIONAL_ONLY})),
+                    kwonlyargcount=len(_signature_kinds(signature, {inspect._ParameterKind.KEYWORD_ONLY})),
+
+                    name=name,
+                    qualname=name,
+
+                    ) or _dummy.__code__
     print(code.co_argcount,)
     return code
 
 
-def construct_function[**PS, RT](signature: inspect.Signature, name: str | None = None) -> Callable[PS, RT]:
+def construct_function[**PS, RT](signature: inspect.Signature, name: str) -> Callable[PS, RT]:
     """Return function with name `name` and signature `signature`."""
     function = FunctionType(code=construct_code(signature, name),
                             globals=dict[str, object](),
@@ -81,8 +99,8 @@ def construct_function[**PS, RT](signature: inspect.Signature, name: str | None 
     return function
 
 
-def test():
-    def f(a: int = 42, /, *, b=3.14, c: float) :
+def test() -> None:
+    def f(x,y,z,a: int = 42, /, q=1, *, b=3.14, c: float,p) :
         return a + b + c
 
     s = inspect.signature(f)

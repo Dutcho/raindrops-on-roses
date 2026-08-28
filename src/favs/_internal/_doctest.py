@@ -1,5 +1,6 @@
-import doctest, sys
-# from . import *
+import doctest
+import sys
+
 from . import __all__
 
 

@@ -1,14 +1,12 @@
 [project]
-name = "raindrops-on-roses"  # name for main folder, repo, pypi, and install
+name = "raindrops-on-roses"  # name for main folder, repo, pypi, and (pip / uv) install
 version = "0.1.1.20260826"
 description = "Raindrops on roses (and whiskers on kittens) - Collection of 'a few of my favourite things' -i.e. classes and functions- in order to stop repeating myself"
 readme = "README.md"
 authors = [ { name = "Dutcho" } ]
 requires-python = ">=3.12"
 dependencies = [
-    "more-itertools",
-    "typing_extensions",
-    "useful-types",
+    "brown-paper-packages",
 ]
 
 [dependency-groups]
@@ -16,12 +14,12 @@ dev = [
     "mypy",
 ]
 
-[tool.uv.sources]
-useful-types = { git = "https://github.com/Dutcho/useful_types.git" }
-
 [build-system]
 requires = ["uv_build<1.0"]
 build-backend = "uv_build"
+
+[tool.uv]
+exclude-newer-package = { raindrops-on-roses = false, brown-paper-packages = false }
 
 [tool.uv.build-backend]
 module-name = "favs"  # name for src subfolder and import

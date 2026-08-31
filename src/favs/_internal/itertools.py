@@ -1,13 +1,14 @@
-"""favs.itertools - favourite iter tooling functions - Olaf, 23 Aug 2026."""
+"""favs.itertools - favourite `Iterable` tooling functions - Olaf, 23 Aug 2026."""
 import itertools
 import sys
-from collections.abc import Iterator, Sized
-from typing import Iterable, overload, TYPE_CHECKING
+from collections.abc import Iterable, Iterator, Sized
+from typing import overload, TYPE_CHECKING
 
 if sys.version_info < (3, 15):
     from typing_extensions import sentinel
 
 _NOT_GIVEN = sentinel('_NOT_GIVEN')  # sentinel for dynamic default
+
 
 if TYPE_CHECKING:
     @overload
@@ -101,8 +102,3 @@ def mark_last[T, MT](values: Iterable[T], /, *, last: bool | MT = True, other: b
             yield current, other                                           # not last yet (still `successor` to go)
             current = successor
         yield current, last                                                # last
-
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()

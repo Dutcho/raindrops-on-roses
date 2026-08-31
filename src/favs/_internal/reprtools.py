@@ -1,4 +1,4 @@
-"""favs.repr - favourite string representation functions - Olaf, 23 Aug 2026."""
+"""favs.reprtools - favourite string representation functions - Olaf, 23 Aug 2026."""
 import inspect
 import itertools
 from collections.abc import Callable
@@ -102,8 +102,3 @@ def call_repr(function: Callable[..., object], *args: object, **kwargs: object) 
     '...call_repr(<function call_repr...>)'
     """
     return f'{function_repr(function)}({args_kwargs_repr(*args, **kwargs)})'
-
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()

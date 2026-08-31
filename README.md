@@ -20,17 +20,25 @@ These are a few of my favorite things
 </blockquote>
 <img src="https://i1.pickpik.com/photos/955/929/102/rose-bud-pink-green-preview.jpg" alt="Raindrops on roses" height="250"/>
 
+There's _no_ connection whatsoever to similarly named packages like `raindrop-ai` or `raindrop-io-py`.
+
 ## Installation
 ### Default
 To install default, use:
-> uv add raindrops-on-roses
+```shell
+uv add raindrops-on-roses
+```
 
 ## Usage
-Just use the module name `favs` ("favourites") to `import` directly, e.g. 
-> import favs
+Just use the module name `favs` ("favourites") to `import` directly, e.g.
+```python
+import favs
+```
 
-To access `<function>` in `<submodule>` within `favs`, then use `favs.<submodule>.<function>`, e.g.
-> favs.repr.args_kwargs_repr(1, 'two', y=25, z='last)
+Then, to access `<function>` in `<submodule>` within `favs`, use `favs.<submodule>.<function>`, e.g.
+```python
+favs.repr.args_kwargs_repr(1, 'two', y=25, z='last)
+```
 
 There's no need (or option) for (lengthy) 
 ~~`import raindrops_on_roses`~~ or ~~`import raindrops_on_roses as favs`~~.

@@ -1,12 +1,26 @@
 [project]
 name = "raindrops-on-roses"  # name for main folder, repo, pypi, and (pip / uv) install
-version = "0.1.1.20260826"
+version = "0.1.1.20260831"
 description = "Raindrops on roses (and whiskers on kittens) - Collection of 'a few of my favourite things' -i.e. classes and functions- in order to stop repeating myself"
 readme = "README.md"
+license = { file = "LICENSE" }
 authors = [ { name = "Dutcho" } ]
 requires-python = ">=3.12"
 dependencies = [
-    "brown-paper-packages",
+    "brown-paper-packages[data]",
+]
+keywords = ["utilities", "tools", "DRY"]
+classifiers = [
+  "Development Status :: 1 - Alpha",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+  "Typing :: Typed",
 ]
 
 [dependency-groups]
@@ -14,18 +28,26 @@ dev = [
     "mypy",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Dutcho/raindrops-on-roses"
+Repository = "https://github.com/Dutcho/raindrops-on-roses"
+Documentation = "https://github.com/Dutcho/raindrops-on-roses/blob/main/README.md"
+
 [build-system]
 requires = ["uv_build<1.0"]
 build-backend = "uv_build"
 
 [tool.uv]
-exclude-newer-package = {
-    raindrops-on-roses = false,
-    brown-paper-packages = false,
-}
+exclude-newer-package = { raindrops-on-roses = false, brown-paper-packages = false }
 
 [tool.uv.sources]
 brown-paper-packages = { git = "https://github.com/Dutcho/brown-paper-packages.git" }  # latest at github instead of pypi
 
 [tool.uv.build-backend]
 module-name = "favs"  # name for src subfolder and import
+
+[tool.mypy]
+strict = true
+
+[tool.ruff]
+line-length = 120

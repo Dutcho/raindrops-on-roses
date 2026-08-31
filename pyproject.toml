@@ -19,7 +19,13 @@ requires = ["uv_build<1.0"]
 build-backend = "uv_build"
 
 [tool.uv]
-exclude-newer-package = { raindrops-on-roses = false, brown-paper-packages = false }
+exclude-newer-package = {
+    raindrops-on-roses = false,
+    brown-paper-packages = false,
+}
+
+[tool.uv.sources]
+brown-paper-packages = { git = "https://github.com/Dutcho/brown-paper-packages.git" }  # latest at github instead of pypi
 
 [tool.uv.build-backend]
 module-name = "favs"  # name for src subfolder and import
